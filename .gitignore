@@ -1,0 +1,5 @@
+.venv/
+__pycache__/
+*.py[cod]
+paper1_out/
+.pytest_cache/

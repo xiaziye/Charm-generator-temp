@@ -1,0 +1,77 @@
+# Continuous additive nonlinear mechanism review panel.
+# Ordinary edges can be nonlinear; protected causal edges use tanh explicitly.
+
+[graph]
+n_baseline = 24
+baseline_mean_parents = 2.0
+baseline_max_parents = 3
+n_shared = 2
+n_x_extra = 3
+n_m_extra = 4
+n_y_extra = 3
+n_inst = 2
+n_pm = 2
+n_py = 2
+n_irrelevant = 2
+xm_chain_nodes = 1
+my_chain_nodes = 1
+n_parallel = 1
+n_post_descendants = 1
+n_middle_confounders = 0
+allow_parallel_mediators = true
+allow_post_descendants = true
+allow_middle_confounding = false
+n_auxiliary_baseline_parents = 2
+direct_edge = true
+
+[mechanism]
+mode = "additive_nonlinear"
+edge_functions = ["id", "tanh", "sin"]
+protected_function = "tanh"
+nonlinear_fraction = 0.45
+negative_edge_fraction = 0.15
+weak_fraction = 0.15
+weak_multiplier = 0.2
+weight_min = 0.25
+weight_max = 0.75
+noise_distribution = "normal"
+noise_df = 5.0
+noise_sd = 1.0
+intercept_sd = 0.0
+xm_weight = 0.6
+my_weight = 0.5
+direct_weight = 0.2
+chain_weight = 0.6
+parallel_x_weight = 0.5
+parallel_y_weight = 0.4
+instrument_weight = 0.7
+predictor_weight = 0.5
+outcome_interaction = 0.25
+
+[calibration]
+enabled = true
+n_samples = 4096
+target_signal_sd = 0.8
+scale_floor = 1e-8
+
+[experiment]
+n_samples = 2000
+n_graphs = 2
+n_replicates = 2
+graph_seed = 20261012
+mechanism_seed = 20261022
+calibration_seed = 20261032
+data_seed = 20261042
+truth_seed = 20261052
+truth_samples = 30000
+chunk_size = 1000
+x0 = 0.0
+x1 = 1.0
+
+[output]
+directory = "paper1_out/data_generation_review_v1/nonlinear"
+csv = true
+plot = true
+preview_rows = 8
+max_plot_nodes = 80
+max_covariance_nodes = 200
