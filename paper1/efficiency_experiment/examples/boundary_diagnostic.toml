@@ -1,0 +1,24 @@
+# 中间混杂边界：验证默认跳过不合法调整对，而不生成虚假的效率优势。
+[source]
+mode = "generate"
+generator_config = "../../data_generation/examples/boundary_middle_confounding.toml"
+n_replicates = 3
+sample_sizes = [300]
+
+[estimator]
+name = "linear_ols"
+
+[[arms]]
+name = "O"
+[[arms]]
+name = "FULL"
+[[arms]]
+name = "SHARED"
+
+[execution]
+seed = 20261016
+workers = 1
+allow_non_admissible = false
+
+[output]
+directory = "../../../paper1_out/efficiency_boundary_diagnostic_20261016"

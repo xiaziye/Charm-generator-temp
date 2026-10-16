@@ -1,0 +1,30 @@
+# 读取已生成的NPZ和manifest；当前例子只有每图2次重复，限于接口核验。
+[source]
+mode = "saved"
+path = "../../../paper1_out/data_generation_review_v1/linear"
+n_replicates = 0 # 使用全部已有重复
+
+[estimator]
+name = "linear_ols"
+se_method = "sandwich"
+
+[[arms]]
+name = "O"
+[[arms]]
+name = "FULL"
+[[arms]]
+name = "SHARED"
+
+[execution]
+seed = 20261016
+workers = 1
+on_error = "raise"
+min_replicates = 100
+
+[endpoints]
+enabled = true
+min_replicates = 100
+
+[output]
+directory = "../../../paper1_out/efficiency_saved_review_20261016"
+per_replicate = true

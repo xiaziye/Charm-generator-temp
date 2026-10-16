@@ -1,0 +1,46 @@
+# 现有可调生成器：每张图固定机制，在新样本上比较4个方案。
+# 路径相对于本TOML所在目录；CLI --out 则相对于命令工作目录。
+[source]
+mode = "generate"
+generator_config = "../../data_generation/examples/review_linear.toml"
+graph_ids = [0, 1]
+sample_sizes = [500, 1000]
+n_replicates = 100
+
+[estimator]
+name = "linear_ols"
+se_method = "sandwich"
+confidence_level = 0.95
+max_condition_number = 1e12
+allow_misspecification = false
+
+[[arms]]
+name = "O"
+[[arms]]
+name = "FULL"
+[[arms]]
+name = "SHARED"
+[[arms]]
+name = "SHAREDm"
+
+[execution]
+seed = 20261016
+workers = 2
+on_error = "continue"
+allow_non_admissible = false
+min_replicates = 100
+reference_arm = "O"
+
+[endpoints]
+enabled = true
+min_replicates = 100
+full_min_ratio = 0.95
+instrument_min_reduction = 0.20
+equality_lower = 0.95
+equality_upper = 1.05
+shared_max_o_ratio = 1.05
+max_bias_z = 3.0
+
+[output]
+directory = "../../../paper1_out/efficiency_linear_pilot_20261016"
+per_replicate = true

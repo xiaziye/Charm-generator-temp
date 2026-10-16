@@ -1,0 +1,43 @@
+# 原D3完整结构面板：48格×2个n×2000重复×5个方案（不含不可用OMISS）。
+# 大规模配置仅供审阅；本次实现未运行此面板，不能据试运行宣称完整确认。
+[source]
+mode = "legacy_d3"
+sample_sizes = [1000, 5000]
+n_replicates = 2000
+
+[estimator]
+name = "linear_ols"
+se_method = "sandwich"
+confidence_level = 0.95
+
+[[arms]]
+name = "O"
+[[arms]]
+name = "FULL"
+[[arms]]
+name = "SHARED"
+[[arms]]
+name = "SHAREDm"
+[[arms]]
+name = "OMISS"
+
+[execution]
+seed = 2026101602
+workers = 4
+on_error = "continue"
+allow_non_admissible = false
+min_replicates = 2000
+
+[endpoints]
+enabled = true
+min_replicates = 2000
+full_min_ratio = 0.95
+instrument_min_reduction = 0.20
+equality_lower = 0.95
+equality_upper = 1.05
+shared_max_o_ratio = 1.05
+max_bias_z = 3.0
+
+[output]
+directory = "../../../paper1_out/efficiency_legacy_d3_full"
+per_replicate = true

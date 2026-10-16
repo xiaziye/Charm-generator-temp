@@ -1,0 +1,39 @@
+# 复用旧D3：抽取8格试运行，含split/common、有/无近工具、纯预测和弱父点。
+# 各格编号来自 paper1.bench.designs.cells()；新随机流，不冒充旧随机结果复现。
+[source]
+mode = "legacy_d3"
+graph_ids = [0, 7, 16, 23, 24, 31, 40, 47]
+sample_sizes = [1000]
+n_replicates = 100
+
+[estimator]
+name = "linear_ols"
+se_method = "sandwich"
+confidence_level = 0.95
+
+[[arms]]
+name = "O"
+[[arms]]
+name = "FULL"
+[[arms]]
+name = "SHARED"
+[[arms]]
+name = "SHAREDm"
+[[arms]]
+name = "OMISS"
+
+[execution]
+seed = 2026101601
+workers = 2
+on_error = "continue"
+allow_non_admissible = false
+min_replicates = 100
+
+[endpoints]
+enabled = true
+min_replicates = 100
+max_bias_z = 3.0
+
+[output]
+directory = "../../../paper1_out/efficiency_legacy_d3_pilot_20261016"
+per_replicate = true
